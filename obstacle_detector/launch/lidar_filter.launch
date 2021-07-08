@@ -1,5 +1,19 @@
 <!-- Reusable launch file for obstacle detection -->
 <launch>
+<!--about motor
+  <arg name="motor_type" default="$(env motor_version)" />
+  <arg name="angle_offset" default="0" />
+  <group unless="$(arg motor_type)">
+    <include file="$(find vesc_driver)/launch/vesc_drive_xycar_motor.launch" />
+  </group>
+  <node name="xycar_motor" pkg="xycar_motor" type="xycar_motor.py" output="screen" >
+    <param name="motor_type" value="$(arg motor_type)" />
+    <param name="angle_offset" value="$(arg angle_offset)" />
+  </node>-->
+
+  <!-- motor node -->
+  <include file="$(find vesc_ackermann)/launch/ackermann_to_vesc_test.launch" />
+
   <node name="rplidarNode" pkg="rplidar_ros" type="rplidarNode" output="screen">
     <param name="serial_port" type="string" value="/dev/ttyRPL"/>
     <param name="serial_baudrate" type="int" value="115200"/>
@@ -19,8 +33,8 @@
     <param name="use_pcl"              value="true"/>
     <!-- use_pcl, default value:false -->
     <param name="use_split_and_merge"    value="true"/>
-    <param name="circles_from_visibles"  value="true"/>
-    <param name="discard_converted_segments" value="true"/>
+    <param name="circles_from_visibles"  value="false"/>
+    <param name="discard_converted_segments" value="false"/>
     <param name="transform_coordinates"  value="true"/>
 
     <param name="min_group_points"     value="2"/>  
@@ -53,8 +67,22 @@
   </node>
 
  <node name="rviz" pkg="rviz" type="rviz" output="screen" args="-d $(find obstacle_detector)/resources/obstacle_detector.rviz"/>
- <node name="test11111111111111" pkg="obstacle_detector" type="fos.py" output="screen">
+ <!--<node name="test1" pkg="obstacle_detector" tycdpe="fos.py" output="screen">
 
  </node>
+-->
+
+  <node name="test11" pkg="obstacle_detector" type="narrow_path.py" output="screen">
+  </node>
+
+
+<!--<node name="motor_test" pkg="racecar_safety_controller" type="safety_controller_node.py" output="screen">
+    <remap from="ackermann_cmd_input" to="ackermann" />
+</node>-->
+
+ <!--
+<node name="test2" pkg="obstacle_detector" type="avoid_obstacles.py" output="screen">
+</node>
+  -->
 </launch>
 
