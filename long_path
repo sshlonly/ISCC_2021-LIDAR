@@ -72,11 +72,15 @@ class point:
 
     def avoid_collision(self,min_list):
 		global flag
-		#print("distance_min",distance_min)
-		point=min_list[1]
 		steer=self.xycar_angle_deg
 		margin=8
-		if(min_list[0].flag==1):   #파랑이면 좌조향
+		yellow_cone=[]
+		blue_cone=[]
+		if min_list[0]].flag==0:
+			yellow_cone.append(sorted_colorcone[i])
+		else:
+			blue_cone.append(sorted_colorcone[i])
+		if(len(yellow_cone)==1):
 			if(self.center_y > 0.5):
 				steer-=margin
 				drive(steer,self.slow_speed)
