@@ -99,18 +99,19 @@ class point:
 		steer=self.xycar_angle_deg
 		margin=8
 		print("###############################################################",sorted_colorcone[0].flag)
-		if(sorted_colorcone[0].flag):
-			steer-=margin
-			drive(steer,True)
-			print("--Danger---left steering")
-			
-			
-		else:
+		if len(sorted_colorcone[0])==1:
+			if(sorted_colorcone[0].flag):
+				steer-=margin
+				drive(steer,True)
+				print("--Danger---left steering")		
+			else:
 		
-			steer+=margin
-			drive(steer,True)
-			print("--Danger---right steering")
-			
+				steer+=margin
+				drive(steer,True)
+				print("--Danger---right steering")
+		else:
+			drive(0,3)             #defense Error(list out of range) and add throttle 3 to save time
+			print(" ##############save time##############")
 
 	def circles_4_center(self,sorted_list):
 		sorted_2_list=None
