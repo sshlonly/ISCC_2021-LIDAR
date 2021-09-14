@@ -110,7 +110,7 @@ class point:
 				drive(steer,True)
 				print("--Danger---right steering")
 		else:
-			drive(0,3)             #defense Error(list out of range) and add throttle 3 to save time
+			drive(0,True)             #defense Error(list out of range) and add throttle 3 to save time
 			print(" ##############save time##############")
 
 	def circles_4_center(self,sorted_list):
