@@ -258,6 +258,8 @@ class point:
  #(self.two_circle_distance>3.0 and left_circle.center.x + 0.4 < right_circle.center.x and self.two_between > 90):
 					#print("two_obstacle_right")
 					drive(30,False)
+				elif (len(yellow_cone)==0) and (len(blue_cone)==0) and (self.two_circle_distance>3.0) and (left_circle.center.x + 0.4 < right_circle.center.x) and (self.two_between > 90):
+					drive(30,False)
 				else:	
 					#print("left_circle:",left_circle.center.y,"right_circle:",right_circle.center.y)
 					left_point=left_circle.center
