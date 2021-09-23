@@ -240,8 +240,8 @@ class point:
 				if (len(yellow_cone)>=1) and len(blue_cone)==0 :
 					print("two_obstacle_right##########################################")
 					drive(30,True)
-                elif (len(yellow_cone)==0) and len(blue_cone)>= 1 :
-                    drive(-30,True)
+                		elif (len(yellow_cone)==0) and len(blue_cone)>= 1 :
+                  			drive(-30,True)
 
 				else:	
 					left_point=left_circle.center
@@ -266,8 +266,8 @@ class point:
 
 				self.center_x,self.center_y=self.calcEquidistance(filter_point1.x,filter_point2.x,filter_point3.x,filter_point1.y,filter_point2.y,filter_point3.y)
 				self.calc_angle()  
-                min_list=self.calc_dismin(left_point1,left_point2,right_point1,right_point2) 
-                if(min_list[0]<1.3 and abs(min_list[1].y)<1.1):
+                		min_list=self.calc_dismin(left_point1,left_point2,right_point1,right_point2) 
+                		if(min_list[0]<1.3 and abs(min_list[1].y)<1.1):
 					self.avoid_collision(min_list)
 						
 				else:
