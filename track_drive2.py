@@ -242,8 +242,8 @@ class point:
 
 				self.center_x,self.center_y=self.calcEquidistance(filter_point1.x,filter_point2.x,filter_point3.x,filter_point1.y,filter_point2.y,filter_point3.y)
 				self.calc_angle() 		        
-                if len(yellow_cone)>=2 and len(blue_cone)==0: 
-				    self.car_angle_deg=self.car_angle_deg_2
+                		if len(yellow_cone)>=2 and len(blue_cone)==0: 
+				    	self.car_angle_deg=self.car_angle_deg_2
 					self.car_angle_deg_2+=5
 					print("************************vision margin111")
 					print("self.car_angle_deg_2:",self.car_angle_deg_2)
