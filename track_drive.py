@@ -28,7 +28,7 @@ def colorcone_callback(msg):
 	blue_cone=[]
 
 	sorted_colorcone = sorted(colorcone, key=lambda x:(x.dist_y,x.dist_x,x.flag))
-	sorted_colorcone = sorted_colorcone[:4]
+	sorted_colorcone = sorted_colorcone[:6]
 	
 	for i in range (len(sorted_colorcone)):
 		if sorted_colorcone[i].flag==0:
@@ -54,8 +54,6 @@ def liner_acceleration(flag):
 		else:
 			drive_speed-=de_step
 			return (drive_speed)
-
-
 
 def drive(angle, flag):
 	global drive_values_pub
@@ -244,7 +242,22 @@ class point:
 
 				self.center_x,self.center_y=self.calcEquidistance(filter_point1.x,filter_point2.x,filter_point3.x,filter_point1.y,filter_point2.y,filter_point3.y)
 				self.calc_angle() 		                                           
-				drive(self.car_angle_deg,False)
+				if len(yellow_cone)>=2 and len(blue_cone)==0: 
+					self.car_angle_deg=self.car_angle_deg_2
+					self.car_angle_deg_2-=5
+					print("************************vision margin111")
+					drive(self.car_angle_deg_2,False)
+						
+
+				elif len(blue_cone)>=2 and len(yellow_cone)==0: 
+					self.car_angle_deg=self.car_angle_deg_2
+					self.car_angle_deg_2+=5
+					print("************************vision margin222")
+					drive(self.car_angle_deg_2,False)
+					
+				else:
+					drive(self.car_angle_deg,False)
+						
 			
 			else:
 				sorted_first_list=sorted(circles,key= lambda circle:circle.center.x)
@@ -268,30 +281,37 @@ class point:
 				self.center_y=(left_point1.y+left_point2.y+right_point1.y+right_point2.y)/4
 				self.calc_angle()
 				#print("point_x: ",self.center_x,"point_y: ",self.center_y)
-				if len(yellow_cone)>=3 and len(blue_cone)==0: 
-					self.car_angle_deg=self.car_angle_deg_2
-					self.car_angle_deg_2-=5
-					print("************************vision margin111")
-					#print("self.car_angle_deg_2:",self.car_angle_deg_2)
-					min_list=self.calc_dismin(left_point1,left_point2,right_point1,right_point2)
-
-					if(min_list[0]<1.0 and abs(min_list[1].y)<0.8):
-						self.avoid_collision(min_list)	
+				if len(yellow_cone)>=3 and len(blue_cone)==0:
+					if len(yellow_cone)>=5 :
+						drvie(20,False)
 					else:
-						drive(self.car_angle_deg_2,False)
-						return
+							
+						self.car_angle_deg=self.car_angle_deg_2
+						self.car_angle_deg_2-=5
+						print("************************vision margin111")
+						#print("self.car_angle_deg_2:",self.car_angle_deg_2)
+						min_list=self.calc_dismin(left_point1,left_point2,right_point1,right_point2)
+
+						if(min_list[0]<1.0 and abs(min_list[1].y)<0.8):
+							self.avoid_collision(min_list)	
+						else:
+							drive(self.car_angle_deg_2,False)
+							return
 
 				elif len(blue_cone)>=3 and len(yellow_cone)==0: 
-					self.car_angle_deg=self.car_angle_deg_2
-					self.car_angle_deg_2+=5
-					print("************************vision margin222")
-					min_list=self.calc_dismin(left_point1,left_point2,right_point1,right_point2)
-					
-					if(min_list[0]<1.0 and abs(min_list[1].y)<0.8):
-						self.avoid_collision(min_list)
-					else:
-						drive(self.car_angle_deg_2,False)
-						return
+					if len(blue_cone)>=5 :
+						drive(-20,False)
+					else:	
+						self.car_angle_deg=self.car_angle_deg_2
+						self.car_angle_deg_2+=5
+						print("************************vision margin222")
+						min_list=self.calc_dismin(left_point1,left_point2,right_point1,right_point2)
+
+						if(min_list[0]<1.0 and abs(min_list[1].y)<0.8):
+							self.avoid_collision(min_list)
+						else:
+							drive(self.car_angle_deg_2,False)
+							return
 				else:
 					min_list=self.calc_dismin(left_point1,left_point2,right_point1,right_point2)
 
